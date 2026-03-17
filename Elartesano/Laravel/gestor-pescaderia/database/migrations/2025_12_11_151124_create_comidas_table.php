@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             // Campo especial para el slug de la película
             $table->string('nombre', 50);
-            $table->string('genero', 30);
             $table->decimal('precio', 8, 2);
            $table->timestamps();
             // No necesitamos timestamps aquí

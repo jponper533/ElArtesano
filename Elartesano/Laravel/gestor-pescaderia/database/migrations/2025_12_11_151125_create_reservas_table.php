@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alquileres', function (Blueprint $table) {
+        Schema::create('reservas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             // No necesitamos timestamps aquí
              $table->foreignId('pelicula_id')->constrained();
-            $table->date('fecha_alquiler');
-            $table->date('fecha_devolucion');
+            $table->date('fecha_reserva');
              $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alquileres');
+        Schema::dropIfExists('reservas');
     }
 };
