@@ -1,6 +1,51 @@
 
 .home {
-    background-color: brown;
-    padding: 1rem;
-    text-align: center;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  padding: 2rem;
+
+  /* Fondo bonito */
+  background: linear-gradient(135deg, #8b5e3c, #c89f7a);
+
+  color: white;
+}
+
+/* Título principal */
+.home h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+
+  /* efecto suave */
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Descripción */
+.home p {
+  max-width: 600px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+
+  color: rgba(255,255,255,0.9);
+}
+
+/* Animación suave al cargar */
+.home {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
