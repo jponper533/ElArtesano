@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            // No necesitamos timestamps aquí
-             $table->foreignId('pelicula_id')->constrained();
-            $table->date('fecha_reserva');
-             $table->timestamps();
+          $table->date('fecha');
+          $table->time('hora');
+         $table->enum('estado', ['pendiente', 'confirmada', 'cancelada', 'completada'])->default('pendiente');
+         $table->foreignId('mesa_id')->constrained('mesas');
+         $table->foreignId('user_id')->constrained('users');
+         $table->timestamps();
+
+         $table->index(['fecha', 'hora']);
         });
     }
 

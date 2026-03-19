@@ -5,22 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Pelicula extends Model
+class Plato extends Model
 {
     use HasFactory;
     
       protected $fillable = [
+      
+       
         'nombre',
-        'genero',
+        'descripcion',
         'precio',
-        'pelicula_id'
-        
+                'imagen',
+
+        'estado'
     ];
 
   
 
-    public function alquiler()
+    public function ingredientes()
     {
-        return $this->belongsTo(Alquiler::class, 'pelicula_id');
+        return $this->belongsTo(Ingrediente::class, 'ingrediente_id');
     }
 }

@@ -9,9 +9,12 @@ use App\Enums\RolSlug;
 class Role extends Model
 {
       // Necesario si no requiere timestamps
-    public $timestamps = false;
-    
-    protected $casts = [
-        'slug' => RolSlug::class,
+    protected $table = 'roles';
+    protected $fillable = [
+       'nombre'
     ];
+    public function usuarios()
+    {
+        return $this->hasMany(Usuario::class, 'role_id');
+    }
 }

@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('peliculas', function (Blueprint $table) {
+        Schema::create('platos', function (Blueprint $table) {
             $table->id();
             // Campo especial para el slug de la película
             $table->string('nombre', 50);
+            $table->string('descripcion', 255)->nullable();
             $table->decimal('precio', 8, 2);
-           $table->timestamps();
+            $table->string('imagen', 255)->nullable();
+            $table->enum('estado', ['activo', 'inactivo'])->default('inactivo');
+            $table->timestamps();
             // No necesitamos timestamps aquí
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('peliculas');
+        Schema::dropIfExists('platos');
     }
 };

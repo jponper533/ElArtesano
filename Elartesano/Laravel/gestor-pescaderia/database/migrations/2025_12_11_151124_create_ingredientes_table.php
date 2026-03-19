@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('ingredientes', function (Blueprint $table) {
             $table->id();
-            // Campo especial para el slug del rol
-            $table->string('slug', 10)->unique();
-            $table->string('nombre', 50)->unique();
+            // Campo especial para el slug de la película
+            $table->string('nombre', 120)->unique();
+            
+            $table->timestamps();
             // No necesitamos timestamps aquí
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('ingredientes');
     }
 };

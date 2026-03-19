@@ -8,9 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\RolSlug;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Reserva;
+use App\Models\Mesa;
+use App\Models\Role;
 
 // Authenticatable proporciona la funcionalidad de autenticación al modelo User
-class User extends Authenticatable
+class Usuario extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasApiTokens , Notifiable;
@@ -24,6 +27,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'telefono',
+        'estado',
         'role_id'
     ];
 
@@ -50,15 +55,12 @@ class User extends Authenticatable
         ];
     }
 
-    public function tareas()
+    public function reservas()
     {
-        return $this->hasMany(Tarea::class);
+        return $this->hasMany(Reserva::class);
     }
 
-    public function proyectos()
-    {
-        return $this->hasMany(Proyecto::class);
-    }
+
 
     public function role()
     {

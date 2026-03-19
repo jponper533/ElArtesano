@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Reutilizamos la tabla users para añadir la relación con roles
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('role_id')->constrained();
+        Schema::create('plato_ingrediente', function (Blueprint $table) {
+            $table->foreignId('plato_id')->constrained('platos');
+            $table->foreignId('ingrediente_id')->constrained('ingredientes');
+           
+            $table->primary(['plato_id', 'ingrediente_id']);
         });
     }
 
@@ -22,9 +24,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['role_id']);
-            $table->dropColumn('role_id');
-        });
+        Schema::dropIfExists('plato_ingrediente');
     }
 };
+
+
+

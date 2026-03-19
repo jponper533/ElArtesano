@@ -1,33 +1,30 @@
 <?php
 
-namespace Database\Seeders;
-
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Role;
-use App\Enums\RolSlug;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class UsuarioSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // User::factory()->create([
-        //     'name' => 'admin',
-        //     'email' => 'admin@admin.com',
-        //     'password' => bcrypt('1234')
-        // ]);
-
-        // Sin cadenas mágicas, utilizamos la enumeración RoleSlug
-        $administradorRole = Role::where('slug', RolSlug::ADMIN)->first();
-        User::firstOrCreate(['name' => 'admin', 'email' => 'admin@admin.com', 'password' => bcrypt('1234'), 'role_id' => $administradorRole->id]);
-        // Sin cadenas mágicas, utilizamos la enumeración RoleSlug
-        $usuarioRole = Role::where('slug', RolSlug::USER)->first();
-        User::firstOrCreate(['name' => 'antonio', 'email' => 'antonio@antonio.com', 'password' => bcrypt('1234'), 'role_id' => $usuarioRole->id]);
-
-        
+        DB::table('usuarios')->insert([
+            [
+                'nombre' => 'Admin',
+                'email' => 'admin@test.com',
+                'password' => Hash::make('123456'),
+                'telefono' => '+34600111222',
+                'estado' => 'activo',
+                'role_id' => 1
+            ],
+            [
+                'nombre' => 'Juan Pérez',
+                'email' => 'juan@test.com',
+                'password' => Hash::make('123456'),
+                'telefono' => '+34600222333',
+                'estado' => 'activo',
+                'role_id' => 2
+            ]
+        ]);
     }
 }

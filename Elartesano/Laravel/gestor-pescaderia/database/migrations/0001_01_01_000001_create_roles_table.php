@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('reservas', function (Blueprint $table) { 
-            $table->string('notas', 500);
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            // Campo especial para el slug del rol
+            $table->string('nombre', 50)->unique();
+            $table->timestamps();
+            // No necesitamos timestamps aquí
         });
     }
 
@@ -21,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('reservas', function (Blueprint $table) {
-                      $table->dropColumn('notas');
-
-        });
+        Schema::dropIfExists('roles');
     }
 };
