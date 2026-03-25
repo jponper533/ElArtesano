@@ -1,4 +1,5 @@
 <?php
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -8,22 +9,22 @@ class UsuarioSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('usuarios')->insert([
+        DB::table('users')->insert([
             [
-                'nombre' => 'Admin',
+                'name' => 'Admin',
                 'email' => 'admin@test.com',
-                'password' => Hash::make('123456'),
+                'password' => '123456',
                 'telefono' => '+34600111222',
                 'estado' => 'activo',
-                'role_id' => 1
+                'rol_id' => 1
             ],
             [
-                'nombre' => 'Juan Pérez',
+                'name' => 'Juan Pérez',
                 'email' => 'juan@test.com',
-                'password' => Hash::make('123456'),
+                'password' => '123456',
                 'telefono' => '+34600222333',
                 'estado' => 'activo',
-                'role_id' => 2
+                'rol_id' => 2
             ]
         ]);
     }
