@@ -9,8 +9,8 @@ class PlatoSeeder extends Seeder
     public function run(): void
     {
         DB::table('platos')->insert([
-            ['id' => 1, 'nombre' => 'Hamburguesa', 'descripcion' => 'Clásica', 'precio' => 8.5, 'estado' => 'activo'],
-            ['id' => 2, 'nombre' => 'Ensalada', 'descripcion' => 'Fresca', 'precio' => 6, 'estado' => 'activo'],
+            ['id' => 1, 'nombre' => 'Hamburguesa', 'descripcion' => 'Clásica', 'precio' => 8.5, 'imagen' => 'https://img.hogar.mapfre.es/wp-content/uploads/2018/09/hamburguesa-sencilla.jpg', 'estado' => 'activo'],
+            ['id' => 2, 'nombre' => 'Ensalada', 'descripcion' => 'Fresca', 'precio' => 6, 'imagen' => 'https://imag.bonviveur.com/presentacion-de-la-ensalada-de-aguacate.jpg', 'estado' => 'activo'],
         ]);
         DB::table('plato_ingrediente')->insert([
             ['plato_id' => 1, 'ingrediente_id' => 2],

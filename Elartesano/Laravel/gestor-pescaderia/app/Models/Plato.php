@@ -10,13 +10,11 @@ class Plato extends Model
     use HasFactory;
     
       protected $fillable = [
-      
-       
+ 
         'nombre',
         'descripcion',
         'precio',
-                'imagen',
-
+        'imagen',
         'estado'
     ];
 

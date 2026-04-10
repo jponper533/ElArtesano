@@ -1,51 +1,81 @@
-
-.home {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  padding: 2rem;
-
-  /* Fondo bonito */
-  background: linear-gradient(135deg, #8b5e3c, #c89f7a);
-
-  color: white;
+.home{
+  width:100%;
 }
 
-/* Título principal */
-.home h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
+/* HERO */
 
-  /* efecto suave */
-  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+.hero{
+  height:70vh;
+  background-image: url("https://images.unsplash.com/photo-1553621042-f6e147245754");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
 }
 
-/* Descripción */
-.home p {
-  max-width: 600px;
-  font-size: 1.2rem;
-  line-height: 1.6;
-
-  color: rgba(255,255,255,0.9);
+.overlay{
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.35);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* Animación suave al cargar */
-.home {
-  animation: fadeIn 0.8s ease-in-out;
+.overlay h1{
+  color:white;
+  font-size:5rem;
+  font-weight:300;
+  letter-spacing:12px;
+  font-style:italic;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* ABOUT SECTION */
+
+.about{
+  background:#efefef;
+  padding:80px 40px;
+}
+
+.aboutContainer{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:60px;
+  align-items:center;
+}
+
+.aboutTitle h2{
+  font-size:2.2rem;
+  color: black;
+  font-weight:700;
+}
+
+.aboutText{
+  font-size:1rem;
+  line-height:1.8;
+  color:#333;
+}
+
+.aboutText p{
+  margin-bottom:20px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:768px){
+
+  .overlay h1{
+    font-size:3rem;
+    letter-spacing:6px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .aboutContainer{
+    grid-template-columns:1fr;
+    text-align:center;
   }
+
 }

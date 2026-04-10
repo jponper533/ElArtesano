@@ -1,16 +1,16 @@
 import styles from "./Dishcard.module.css"
 
-export function DishCard({ name, description, price, image }) {
+export function DishCard({ nombre, descripcion, precio, imagen }) {
   return (
     <div className={styles.card}>
-      <img src={image} alt={name} />
+      <img src={imagen} alt={nombre} />
 
       <div className={styles.content}>
-        <h3>{name}</h3>
-        <p>{description}</p>
+        <h3>{nombre}</h3>
+        <p>{descripcion}</p>
 
         <div className={styles.footer}>
-          <span>{price}€</span>
+          <span>{precio}€</span>
           <button>Pedir</button>
         </div>
       </div>

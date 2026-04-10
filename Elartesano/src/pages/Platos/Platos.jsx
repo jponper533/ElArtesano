@@ -1,7 +1,10 @@
 import styles from "./Platos.module.css"
 import { DishCard } from  "../../components/Dishcard/Dishcard"
+import { GET_PLATOS_ENDPOINT} from '../../util/config';
+import { useState, useEffect} from "react";
 
 export function Platos() {
+  const [platos, setPlatos] = useState([]);
 
   const dishes = [
     {
@@ -24,12 +27,28 @@ export function Platos() {
     }
   ]
 
+
+const fetchPlatos = async () => {
+        try {
+            const response = await fetch(`${GET_PLATOS_ENDPOINT}`);
+            const data = await response.json();
+            console.log(data);
+            setPlatos(data);
+        } catch (error) {
+            console.error("Error al cargar los platos:", error);
+        }
+    };
+
+        useEffect(() => {
+        fetchPlatos();
+    }, []);
+
   return (
     <div className={styles.container}>
       <h1>Nuestros Platos</h1>
 
       <div className={styles.grid}>
-        {dishes.map((dish, index) => (
+        {platos.map((dish, index) => (
           <DishCard key={index} {...dish} />
         ))}
       </div>
