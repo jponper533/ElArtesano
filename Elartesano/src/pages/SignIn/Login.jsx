@@ -1,16 +1,14 @@
 import { useRef, useState } from "react";
 import { validation } from "../../util/validationForm";
 import "./Login.Module.css";
-import { LOGIN_ENDPOINT } from "../../util/config";
+import { LOGIN_ENDPOINT } from "../../config";
 import { useNavigate } from "react-router-dom";  
 import { useAuth } from "../context_providers/AuthProvider";  // Importa el hook del contexto
 import logo from "../../components/img/LOGO.png";
 import { Link } from 'react-router-dom';
-import { useCartContext } from '../context_providers/CartProvider';
 
 
 function Login() {
-    const { mergeCarts } = useCartContext();
     const navigate = useNavigate();
     const { login } = useAuth(); 
     const emailRef = useRef(null);
@@ -24,15 +22,15 @@ function Login() {
         event.preventDefault();
 
         const emailValue = emailRef.current.value;
-        if (!validation.isValidEmail(emailValue)) {
+/*         if (!validation.isValidEmail(emailValue)) {
             setEmailError("Por favor, introduce un formato de email válido.");
             return;
         } else {
             setEmailError(null);
-        }
+        } */
 
         const passwordValue = passwordRef.current.value;
-        if (!validation.isValidPassword(passwordValue)) {
+      /*   if (!validation.isValidPassword(passwordValue)) {
             setPasswordError(
                 "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales."
             );
@@ -40,7 +38,7 @@ function Login() {
         } else {
             setPasswordError(null);
         }
-
+ */
         const objetoBackend = {
             email: emailValue,
             password: passwordValue
@@ -62,29 +60,18 @@ function Login() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "https://soless.vercel.app"
                 },
                 body: JSON.stringify(data),
             });
 
+          
+                console.log("respuesta:", response);
             if (response.ok) {
                 const datosPromesa = await response.json();
-                const token = datosPromesa.accessToken;
-                const decodedToken = jwtDecode(token);
-
-                if (decodedToken) {
-                    const userInfo = {
-                        id: decodedToken.Id,
-                        name: decodedToken.Name,
-                        email: decodedToken.Email,
-                        role: decodedToken.role,
-                        address: decodedToken.Address
-                    };
-                    mergeCarts(decodedToken.Id);
-                    login(userInfo, token);
-                    
-
-                }
+                const token = datosPromesa.token;
+                console.log("token recibido", token);
+                login(token);
+          
 
                 setPromesaError(null);
             } else {
@@ -136,13 +123,7 @@ function Login() {
                     </div>
                 </form>
             </div>
-            <div className="right-panel-log">
-                <div className="logoLogin">
-                    <img src={logo} alt="Logo" className="logo1" />
-                    <img src={logo} alt="Logo" className="logo2" />
-                    <img src={logo} alt="Logo" className="logo3" />
-                </div>
-            </div>
+       
         </div>
     );
 }

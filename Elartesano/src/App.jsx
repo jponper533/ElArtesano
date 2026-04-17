@@ -3,10 +3,13 @@ import { Layout } from "./layout/Layout"
 import { Home } from "./pages/Home/Home"
 import { Platos } from "./pages/Platos/Platos"
 import { About_Us } from "./pages/About_Us/About_Us"
-import { Login } from "./pages/SignIn/Login"
+import  Login  from "./pages/SignIn/Login"
+import { AuthProvider } from "./pages/context_providers/AuthProvider"
 function App() {
   return (
-    <BrowserRouter>
+        <BrowserRouter>
+    <AuthProvider>
+
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -15,8 +18,9 @@ function App() {
           <Route path="/signin" element={<Login />} />
         </Route>
       </Routes>
-    </BrowserRouter>
-  )
+  
+    </AuthProvider></BrowserRouter>
+  )  
 }
 
 export default App

@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
     //
     public function login(Request $request)
     {
-        // Validar los datos de entrada
+    Log::info('Intento de login con email: ' . $request->email);
+    // Validar los datos de entrada
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
@@ -22,6 +24,7 @@ class AuthController extends Controller
             $token = $request->user()->createToken('api_token')->plainTextToken;
             return response()->json([
                 'token' => $token
+                
             ]);
         } else {
             return response()->json([
