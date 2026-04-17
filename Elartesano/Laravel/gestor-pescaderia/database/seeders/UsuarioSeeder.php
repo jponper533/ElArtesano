@@ -13,7 +13,7 @@ class UsuarioSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@test.com',
-                'password' => '123456',
+                'password' => bcrypt('123456'),
                 'telefono' => '+34600111222',
                 'estado' => 'activo',
                 'rol_id' => 1
@@ -21,7 +21,7 @@ class UsuarioSeeder extends Seeder
             [
                 'name' => 'Juan Pérez',
                 'email' => 'juan@test.com',
-                'password' => '123456',
+                'password' => bcrypt('123456'),
                 'telefono' => '+34600222333',
                 'estado' => 'activo',
                 'rol_id' => 2

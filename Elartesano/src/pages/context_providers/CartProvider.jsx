@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import propTypes from "prop-types";
-import { GET_CART_ENDPOINT, ADD_TO_CART_ENDPOINT, GET_SHOE_BY_ID_ENDPOINT } from "../config";
+//import propTypes from "prop-types";
+import { GET_CART_ENDPOINT, ADD_TO_CART_ENDPOINT, GET_SHOE_BY_ID_ENDPOINT } from "../../config";
 
 const CartContext = createContext();
 export function useCartContext() {

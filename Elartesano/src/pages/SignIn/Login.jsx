@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { validation } from "../../util/validationForm";
-import { jwtDecode } from "jwt-decode";
 import "./Login.Module.css";
 import { LOGIN_ENDPOINT } from "../../util/config";
 import { useNavigate } from "react-router-dom";  

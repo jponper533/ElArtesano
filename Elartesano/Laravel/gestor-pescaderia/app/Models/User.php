@@ -13,7 +13,7 @@ use App\Models\Mesa;
 use App\Models\Role;
 
 // Authenticatable proporciona la funcionalidad de autenticación al modelo User
-class Usuario extends Authenticatable
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasApiTokens , Notifiable;

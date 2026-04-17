@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,7 +11,7 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        return response()->json(Usuario::with(['role', 'reservas'])->get());
+        return response()->json(User::with(['role', 'reservas'])->get());
     }
     public function store(Request $request)
     {
@@ -24,16 +24,16 @@ class UsuarioController extends Controller
             'role_id' => 'required|exists:roles,id',
         ]);
         $validated['password'] = Hash::make($validated['password']);
-        $usuario = Usuario::create($validated);
+        $usuario = User::create($validated);
         return response()->json($usuario->load('role'), 201);
     }
     public function show(string $id)
     {
-        return response()->json(Usuario::with(['role', 'reservas'])->findOrFail($id));
+        return response()->json(User::with(['role', 'reservas'])->findOrFail($id));
     }
     public function update(Request $request, string $id)
     {
-        $usuario = Usuario::findOrFail($id);
+        $usuario = User::findOrFail($id);
         $validated = $request->validate([
             'nombre' => 'sometimes|string|max:100',
             'email' => 'sometimes|email|max:150|unique:usuarios,email,' . $usuario->id,
@@ -48,7 +48,7 @@ class UsuarioController extends Controller
     }
     public function destroy(string $id)
     {
-        Usuario::findOrFail($id)->delete();
-        return response()->json(['message' => 'Usuario eliminado']);
+        User::findOrFail($id)->delete();
+        return response()->json(['message' => 'User eliminado']);
     }
 }

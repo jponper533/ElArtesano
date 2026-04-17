@@ -1,7 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { VALIDATE_TOKEN_ENDPOINT } from "../config";
+//import PropTypes from "prop-types";
+import { VALIDATE_TOKEN_ENDPOINT } from "../../config";
 
 const AuthContext = createContext();
 
