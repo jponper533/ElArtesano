@@ -40,4 +40,4 @@ export function Home() {
 
     </div>
   )
-}
+} 

@@ -23,6 +23,9 @@ export function Header() {
           <li>
             <Link to="/contact">Contacto</Link>
           </li>
+          <li>
+            <Link to="/signin">Iniciar Sesión</Link>
+          </li>
         </ul>
       </nav>
     </header>
