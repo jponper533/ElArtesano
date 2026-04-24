@@ -1,7 +1,11 @@
 import styles from './Header.module.css'
 import { Link } from "react-router-dom"
+import { useAuth } from "../../pages/context_providers/AuthProvider"; // 👈 IMPORTANTE
 
 export function Header() {
+
+  const { isAuthenticated, logout } = useAuth(); // 👈 sacas el estado
+
   return (
     <header className={styles.header}>
       <h1>El Artesano</h1>
@@ -23,9 +27,25 @@ export function Header() {
           <li>
             <Link to="/contact">Contacto</Link>
           </li>
-          <li>
-            <Link to="/signin">Iniciar Sesión</Link>
-          </li>
+
+          {/* 👇 SOLO si NO está logeado */}
+          {!isAuthenticated && (
+            <li>
+              <Link to="/signin">Iniciar Sesión</Link>
+            </li>
+          )}
+
+          {/* 👇 SOLO si está logeado */}
+          {isAuthenticated && (
+            <>
+              <li>
+                <Link to="/perfil">Mi Perfil</Link>
+              </li>
+              <li>
+                <button onClick={logout}>Cerrar sesión</button>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </header>

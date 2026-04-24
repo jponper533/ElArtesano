@@ -1,0 +1,201 @@
+/* ============================================================
+   userPage.Module.css — El Artesano · Perfil de Usuario
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Jost:wght@300;400;500&display=swap');
+
+:root {
+  --c-bg:       #1a1208;
+  --c-surface:  #221a0d;
+  --c-border:   rgba(201, 169, 110, 0.15);
+  --c-gold:     #c9a96e;
+  --c-pearl:    #f2e8d5;
+  --c-muted:    #7a6a52;
+  --c-text:     #d4c4a8;
+  --c-green:    #4a8c6e;
+  --c-red:      #8c4a4a;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Jost', sans-serif;
+  --tr:         0.25s ease;
+}
+
+/* ── Centrado de página ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--c-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  padding: 2rem 1rem;
+  font-family: var(--font-sans);
+}
+
+/* ── Tarjeta central ── */
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Cabecera de la tarjeta ── */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.8rem 1.8rem 1.5rem;
+  border-bottom: 1px solid var(--c-border);
+  background: linear-gradient(135deg, #1e1508, #2a1e0a);
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2e1f08, #1a1208);
+  border: 1px solid var(--c-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--c-gold);
+  flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(201, 169, 110, 0.15);
+}
+
+.nombre {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--c-pearl);
+  margin: 0 0 0.2rem;
+  line-height: 1;
+}
+
+.rol {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+  margin: 0;
+  opacity: 0.75;
+}
+
+/* ── Lista de datos ── */
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.8rem;
+  border-bottom: 1px solid var(--c-border);
+  transition: background var(--tr);
+}
+
+.fila:last-child {
+  border-bottom: none;
+}
+
+.fila:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.value {
+  font-size: 0.88rem;
+  color: var(--c-text);
+  font-weight: 300;
+  text-align: right;
+}
+
+/* ── Badge de estado ── */
+.badge {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.65rem;
+  border-radius: 20px;
+}
+
+.activo {
+  background: rgba(74, 140, 110, 0.15);
+  color: #6abf94;
+  border: 1px solid rgba(74, 140, 110, 0.3);
+}
+
+.inactivo {
+  background: rgba(140, 74, 74, 0.15);
+  color: #bf8080;
+  border: 1px solid rgba(140, 74, 74, 0.3);
+}
+
+/* ── Botones ── */
+.acciones {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.2rem 1.8rem;
+  border-top: 1px solid var(--c-border);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.editBtn,
+.logoutBtn {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background var(--tr), color var(--tr), box-shadow var(--tr), transform var(--tr);
+  border: 1px solid var(--c-border);
+}
+
+.editBtn {
+  background: transparent;
+  color: var(--c-muted);
+}
+
+.editBtn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--c-pearl);
+  border-color: rgba(201, 169, 110, 0.3);
+}
+
+.logoutBtn {
+  background: var(--c-gold);
+  color: var(--c-bg);
+  border-color: transparent;
+}
+
+.logoutBtn:hover {
+  background: var(--c-pearl);
+  box-shadow: 0 0 14px rgba(201, 169, 110, 0.25);
+  transform: translateY(-1px);
+}
