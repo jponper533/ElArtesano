@@ -1,14 +1,20 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../context_providers/AuthProvider";
 
-const ProtectedRoutes = () => {
-    const { isAuthenticated, isAuthLoading } = useAuth();
+function AdminRoute() {
+    const { user, isAuthenticated, isAuthLoading } = useAuth();
 
+    const isAdmin = user?.rol_id === "1";
     if (isAuthLoading) {
         return null;
     }
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
-};
+    if (!isAuthenticated || !isAdmin) {
+        return <Navigate to="/Login" replace />;
+    } else {
+        return <Outlet />;
+    }
 
-export default ProtectedRoutes
+}
+
+export default AdminRoute;

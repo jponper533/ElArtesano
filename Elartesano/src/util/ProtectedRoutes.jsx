@@ -1,14 +1,15 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from "../context_providers/AuthProvider";
+import { useAuth } from "../pages/context_providers/AuthProvider";
 
 const ProtectedRoutes = () => {
-    const { isAuthenticated, isAuthLoading } = useAuth();
+      const { isAuthenticated, isAuthLoading, isLoggingOut, user } = useAuth();
+  const isClient = Number(user?.rol_id) === 2;
 
-    if (isAuthLoading) {
-        return null;
-    }
+  if (isAuthLoading || isLoggingOut) {
+    return null;
+  }
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return isAuthenticated && isClient ? <Outlet /> : <Navigate to="/" replace />;
 };
 
-export default ProtectedRoutes
+export default ProtectedRoutes;

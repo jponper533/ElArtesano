@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Jost:wght@300;400;500&display=swap");
+
+:root {
+  --c-bg: #1a1208;
+  --c-surface: #221a0d;
+  --c-border: rgba(201, 169, 110, 0.15);
+  --c-gold: #c9a96e;
+  --c-pearl: #f2e8d5;
+  --c-muted: #7a6a52;
+  --c-text: #d4c4a8;
+  --c-error: #d37b7b;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Jost", sans-serif;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  background: var(--c-bg);
+}
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.cardHeader {
+  padding: 1.6rem 1.6rem 1.2rem;
+  border-bottom: 1px solid var(--c-border);
+  background: linear-gradient(135deg, #1e1508, #2a1e0a);
+}
+
+.cardHeader h1 {
+  margin: 0;
+  color: var(--c-pearl);
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.cardHeader p {
+  margin: 0.4rem 0 0;
+  color: var(--c-muted);
+  font-family: var(--font-sans);
+}
+
+.fields {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.2rem 1.6rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--c-pearl);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.field input {
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  padding: 0.65rem 0.8rem;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--c-text);
+  font-size: 0.95rem;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: rgba(201, 169, 110, 0.45);
+}
+
+.separator {
+  height: 1px;
+  margin: 0 1.6rem;
+  background: var(--c-border);
+}
+
+.error {
+  margin: 0 1.6rem;
+  color: var(--c-error);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.2rem 1.6rem 1.4rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.cancelBtn,
+.saveBtn {
+  flex: 1;
+  border-radius: 6px;
+  padding: 0.65rem 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cancelBtn {
+  background: transparent;
+  color: var(--c-muted);
+  border: 1px solid var(--c-border);
+}
+
+.saveBtn {
+  border: none;
+  background: var(--c-gold);
+  color: var(--c-bg);
+}

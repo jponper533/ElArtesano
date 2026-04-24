@@ -1,16 +1,35 @@
 import styles from './userPage.module.css'
 import { useAuth } from '../../pages/context_providers/AuthProvider'
+import { Link, Navigate } from 'react-router-dom'
 
 export default function UserPage() {
   const { user, logout } = useAuth()
+  const roleId = Number(user?.rol_id)
+  const isClient = roleId === 2
+
+  console.log("User data in UserPage:", user)
+  if (!isClient) {
+    return <Navigate to="/" replace />
+  }
+
+  const roleLabel = 
+     roleId === 2
+      ? 'Rol: Cliente'
+      : 'Rol: Usuario'
+  const profile = {
+    nombre: user?.name ?? user?.nombre ?? 'Usuario',
+    email: user?.email ?? 'Sin email',
+    telefono: user?.telefono ?? 'Sin telefono',
+    fecha_registro: user?.fecha_registro ?? 'Sin fecha de registro',
+    estado: user?.estado ?? 'Activo',
+  }
 
   const campos = [
-    { label: 'Nombre',             value: user?.nombre    ?? 'Alejandro Ruiz' },
-    { label: 'Correo electrónico', value: user?.email     ?? 'alejandro@email.com' },
+    { label: 'Nombre',             value: profile.nombre },
+    { label: 'Correo electrónico', value: profile.email },
     { label: 'Contraseña',         value: '••••••••' },
-    { label: 'Teléfono',           value: user?.telefono  ?? '+34 612 345 678' },
-    { label: 'Fecha de registro',  value: user?.createdAt ?? '12 de marzo, 2023' },
-    { label: 'Estado',             value: user?.estado    ?? 'Activo', esEstado: true },
+    { label: 'Teléfono',           value: profile.telefono },
+    { label: 'Fecha de registro',  value: profile.fecha_registro },
   ]
 
   return (
@@ -20,31 +39,29 @@ export default function UserPage() {
         {/* Cabecera */}
         <div className={styles.cardHeader}>
           <div className={styles.avatar}>
-            {(user?.nombre ?? 'AR').slice(0, 2).toUpperCase()}
+            {(profile.nombre ?? 'AR').slice(0, 2).toUpperCase()}
           </div>
           <div>
-            <h1 className={styles.nombre}>{user?.nombre ?? 'Alejandro Ruiz'}</h1>
-            <p className={styles.rol}>Cliente Artesano</p>
+            <h1 className={styles.nombre}>{profile.nombre}</h1>
+            <p className={styles.rol}>{roleLabel}</p>
           </div>
         </div>
 
         {/* Lista de datos */}
         <ul className={styles.lista}>
-          {campos.map(({ label, value, esEstado }) => (
+          {campos.map(({ label, value }) => (
             <li key={label} className={styles.fila}>
               <span className={styles.label}>{label}</span>
-              {esEstado
-                ? <span className={`${styles.badge} ${value === 'Activo' ? styles.activo : styles.inactivo}`}>{value}</span>
-                : <span className={styles.value}>{value}</span>
-              }
+              <span className={styles.value}>{value}</span>
+              
             </li>
           ))}
         </ul>
 
         {/* Botones */}
         <div className={styles.acciones}>
-          <button className={styles.editBtn}>Editar perfil</button>
-          <button className={styles.logoutBtn} onClick={logout}>Cerrar sesión</button>
+          <Link to="/perfil/editar" className={styles.editBtn}>Editar perfil</Link>
+          <button className={styles.logoutBtn} onClick={logout}> Cerrar sesión</button>
         </div>
 
       </div>

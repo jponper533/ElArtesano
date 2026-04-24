@@ -1,85 +1,117 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-/* 
-import { VALIDATE_TOKEN_ENDPOINT } from "../../config"; */
+import { ME_ENDPOINT } from "../../config";
 
 const AuthContext = createContext();
+const AUTH_TOKEN_KEY = "authToken";
 
 export function AuthProvider({ children }) {
 
-    const tokenLS = localStorage.getItem("authToken");
+    const tokenLS = localStorage.getItem(AUTH_TOKEN_KEY);
     const [token, setToken] = useState(tokenLS || null);
+    const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isAuthLoading, setIsAuthLoading] = useState(true);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
     const navigate = useNavigate();
 
-    const login = (token) => {
-        setIsAuthenticated(true); 
+    const clearAuthState = () => {
+        setIsAuthenticated(false);
+        setToken(null);
+        setUser(null);
+        localStorage.removeItem(AUTH_TOKEN_KEY);
+    };
+
+    const fetchAuthenticatedUser = async (tokenToValidate) => {
+        const response = await fetch(ME_ENDPOINT, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${tokenToValidate}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Token invalido o caducado");
+        }
+
+        return response.json();
+    };
+
+    const refreshUser = async () => {
+        const activeToken = localStorage.getItem(AUTH_TOKEN_KEY);
+
+        if (!activeToken) {
+            clearAuthState();
+            return null;
+        }
+
+        try {
+            const authenticatedUser = await fetchAuthenticatedUser(activeToken);
+            setToken(activeToken);
+            setUser(authenticatedUser);
+            setIsAuthenticated(true);
+            return authenticatedUser;
+        } catch {
+            clearAuthState();
+            return null;
+        }
+    };
+
+    const login = async (token) => {
+        setIsLoggingOut(false);
+        setIsAuthenticated(true);
         setToken(token);
-        console.log("token", token);
-        localStorage.setItem("authToken", token); 
-        navigate("/"); 
+        localStorage.setItem(AUTH_TOKEN_KEY, token);
+
+        try {
+            const authenticatedUser = await fetchAuthenticatedUser(token);
+            setUser(authenticatedUser);
+        } catch {
+            clearAuthState();
+            return;
+        }
+
+        navigate("/");
     };
 
     const logout = () => {
-        setIsAuthenticated(false);
-        setToken(null);
-        localStorage.removeItem("authToken");  
-        console.log("borrando carrito")
-     
+        setIsLoggingOut(true);
+        clearAuthState();
+        navigate("/", { replace: true });
     };
-
-
 
     useEffect(() => {
         const validateToken = async () => {
-       
-            const storedToken = localStorage.getItem("authToken");
+            const storedToken = localStorage.getItem(AUTH_TOKEN_KEY);
 
             if (!storedToken) {
-                setIsAuthenticated(false);
+                clearAuthState();
                 setIsAuthLoading(false);
                 return;
             }
-                setToken(storedToken);
-                setIsAuthenticated(true);
-/*             setIsAuthLoading(true);
+
+            setIsAuthLoading(true);
 
             try {
-                const response = await fetch(VALIDATE_TOKEN_ENDPOINT, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${storedToken}`,
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error("Token invalid or expired");
-                }
-
-                const data = await response.json();
-                const backendToken = data?.token;
-
-                if (!backendToken) {
-                    throw new Error("Invalid validation response");
-                }
-
+                const authenticatedUser = await fetchAuthenticatedUser(storedToken);
                 setToken(storedToken);
                 setIsAuthenticated(true);
+                setUser(authenticatedUser);
+                setIsLoggingOut(false);
             } catch (error) {
                 console.error("Sesion invalida o caducada:", error);
-                logout();
+                clearAuthState();
             } finally {
                 setIsAuthLoading(false);
-            } */
+            }
         };
 
         validateToken();
-    }, []); 
+    }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, token, isAuthLoading }}>
+        <AuthContext.Provider value={{ isAuthenticated, login, logout, token, user, isAuthLoading, isLoggingOut, refreshUser }}>
             {children}
         </AuthContext.Provider>
     );

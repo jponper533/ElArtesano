@@ -31,6 +31,12 @@ input {
 	color: var(--text-color);
 }
 
+.separator {
+	margin-top: 20px;
+	color: red;
+	font-weight: 700;
+	font-family: "Montserrat Alternates";
+}
 .container-reg{
 	display: flex;
 	height: 100vh;

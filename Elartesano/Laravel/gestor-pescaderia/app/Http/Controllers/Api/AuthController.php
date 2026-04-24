@@ -40,4 +40,52 @@ class AuthController extends Controller
             'message' => 'Sesión cerrada correctamente'
         ]);
     }
+    public function me(Request $request)
+    {
+        $user = $request->user();
+        
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'telefono' => $user->telefono,
+            'fecha_registro' => $user->fecha_registro,
+            'rol_id' => $user->rol_id
+        ]);
+    }
+    public function updateMe(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
+            'telefono' => 'sometimes|required|string|max:20',
+        ]);
+
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+        if ($request->has('telefono')) {
+            $user->telefono = $request->telefono;
+        }
+    
+
+        $user->save();
+
+        return response()->json([
+            'message' => 'Perfil actualizado correctamente',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'telefono' => $user->telefono,
+                'fecha_registro' => $user->fecha_registro,
+                'rol_id' => $user->rol_id
+            ]
+        ]);
+    }
 }

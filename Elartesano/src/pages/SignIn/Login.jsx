@@ -75,7 +75,7 @@ function Login() {
 
                 setPromesaError(null);
             } else {
-                setPromesaError("error server");
+                setPromesaError("Contraseña o email incorrectos");
             }
         } catch (error) {
             console.log(error);
@@ -89,7 +89,7 @@ function Login() {
         <div className="container-log">
             <div className="left-panel-log">
                 <Link to={`/`}>
-                    <h2>SOLESS</h2>
+                    <h2>El Artesano</h2>
                 </Link>
                 <form>
                     <h1>Inicia Sesión</h1>
@@ -117,7 +117,10 @@ function Login() {
                     <button onClick={handleSubmit} disabled={isLoading} className="big-button primary-button">
                         {isLoading ? "Cargando..." : "Entrar"}
                     </button>
-                    {promesaError && <p>{promesaError}</p>}
+                    <div className="separator">
+                                            {promesaError && <p>{promesaError}</p>}
+
+                    </div>
                     <div>
                         ¿No tienes cuenta?<Link to={"/Register"}> Regístrate</Link>
                     </div>
