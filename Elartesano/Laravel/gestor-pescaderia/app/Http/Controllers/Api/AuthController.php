@@ -6,14 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     //
     public function login(Request $request)
     {
-    Log::info('Intento de login con email: ' . $request->email);
-    // Validar los datos de entrada
+        Log::info('Intento de login con email: ' . $request->email);
+        // Validar los datos de entrada
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
@@ -24,7 +26,7 @@ class AuthController extends Controller
             $token = $request->user()->createToken('api_token')->plainTextToken;
             return response()->json([
                 'token' => $token
-                
+
             ]);
         } else {
             return response()->json([
@@ -43,7 +45,7 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         $user = $request->user();
-        
+
         return response()->json([
             'id' => $user->id,
             'name' => $user->name,
@@ -72,7 +74,7 @@ class AuthController extends Controller
         if ($request->has('telefono')) {
             $user->telefono = $request->telefono;
         }
-    
+
 
         $user->save();
 
@@ -87,5 +89,44 @@ class AuthController extends Controller
                 'rol_id' => $user->rol_id
             ]
         ]);
+    }
+    public function createMe(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'telefono' => 'required|string',
+            'password' => 'required|min:6',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'fecha_registro' => now(),
+            'rol_id' => 1, // 👈 por defecto
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json([
+            'message' => 'Usuario creado correctamente',
+            'user' => $user
+        ], 201);
+    }
+    public function deleteMe(Request $request)
+    {
+
+        $user = User::find($request->user()->id);
+        if ($user) {
+            $user->delete();
+            return response()->json([
+                'message' => 'Usuario eliminado correctamente'
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Usuario no encontrado'
+            ], 404);
+        }
     }
 }

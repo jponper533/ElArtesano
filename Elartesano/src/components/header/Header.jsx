@@ -38,6 +38,11 @@ export function Header() {
           {/* 👇 SOLO si está logeado */}
           {isAuthenticated && (
             <>
+            {isAdmin && (
+              <li>
+                <Link to="/admin">Admin</Link>
+              </li>
+            )}
               <li>
                 <Link to="/perfil">Mi Perfil</Link>
               </li>

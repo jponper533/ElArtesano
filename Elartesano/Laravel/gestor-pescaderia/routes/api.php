@@ -11,6 +11,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/me', [AuthController::class, 'me']);
     Route::put('/me', [AuthController::class, 'updateMe']);
+    Route::post('/me', [AuthController::class, 'createMe']);
+    Route::delete('/me', [AuthController::class, 'deleteMe']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::delete('/platos/{id}', [PlatoController::class, 'destroy']);
