@@ -1,174 +1,294 @@
+/* ── El Artesano · Login.Module.css ────────────────────────────────────── */
 
-/*Montserrat Alternates*/
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;700&display=swap');
-/*Montserrat*/
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:wght@400;500&display=swap');
 
-h2 {
-	margin-bottom: 50px;
-	font-size: 2.5rem;
-	font-family: "Montserrat Alternates";
+/* ── Variables ─────────────────────────────────────────────────────────── */
+:root {
+  --color-bg:           #1C1208;
+  --color-bg-soft:      #231a0a;
+  --color-bg-card:      #221508;
+  --color-gold:         #C9A84C;
+  --color-gold-light:   #E2C47A;
+  --color-gold-dim:     #8C6E2F;
+  --color-gold-border:  rgba(201, 168, 76, 0.25);
+  --color-gold-glow:    rgba(201, 168, 76, 0.10);
+  --color-text:         #E8D9B8;
+  --color-text-muted:   #A89070;
+  --color-text-faint:   #6E5A3E;
+  --color-error:        #C0392B;
+  --color-error-bg:     rgba(192, 57, 43, 0.10);
+  --color-error-border: rgba(192, 57, 43, 0.45);
+
+  --font-display:       'Cormorant Garamond', serif;
+  --font-body:          'EB Garamond', serif;
 }
 
-a {
-	font-weight: 800;
-	color: var(--text-color);
-	text-decoration: inherit;
-}
-a:hover {
-	color: var(--primary-color);
+@keyframes shimmer {
+  0%   { background-position: 220% center; }
+  100% { background-position:   0% center; }
 }
 
-
-input {
-	border-radius: 15px;
-	border: none;
-	padding: 0.6em 1.2em;
-	font-size: 1.2em;
-	font-weight: 400;
-	font-family: inherit;
-	background-color: #F3EBFD;
-	color: var(--text-color);
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.separator {
-	margin-top: 20px;
-	color: red;
-	font-weight: 700;
-	font-family: "Montserrat Alternates";
-}
-.container-reg{
-	display: flex;
-	height: 100vh;
-	width: 100vw;
-	justify-content: center;
-	flex-direction: row-reverse;
-	font-size: 1.4rem;
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
 }
 
-.left-panel {
-	background-color: var(--accent-color);
-	flex: 1;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 20px;
+/* ══════════════════════════════════════════════════════════════════════════
+   LAYOUT CONTAINER
+══════════════════════════════════════════════════════════════════════════ */
+.container-log {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201, 168, 76, 0.06) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  padding: 2rem;
+  font-family: var(--font-body);
 }
 
-.right-panel{
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
-}
-
-.container-log{
-	display: flex;
-	min-height: 100vh;
-	height: 100vh;
-	width: 100vw;
-	flex-direction: row;
-	font-size: 1.4rem;
-}
-
+/* ══════════════════════════════════════════════════════════════════════════
+   CARD / LEFT PANEL
+══════════════════════════════════════════════════════════════════════════ */
 .left-panel-log {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 20px;
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gold-border);
+  padding: 3rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  animation: fadeUp 0.85s ease both;
+
+  /* Subtle gold glow */
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.04),
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(201, 168, 76, 0.04);
 }
 
-.right-panel-log{
-	
-	background-color: var(--primary-color);
-	flex: 1;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 20px;
+/* ══════════════════════════════════════════════════════════════════════════
+   BRAND LINK  (h2 inside <Link>)
+══════════════════════════════════════════════════════════════════════════ */
+.left-panel-log > a {
+  text-decoration: none;
+  margin-bottom: 2rem;
 }
 
-form{
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+.left-panel-log > a h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.55rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+
+  /* Shimmer gold */
+  background: linear-gradient(
+    105deg,
+    var(--color-gold-dim)   0%,
+    var(--color-gold-light) 40%,
+    var(--color-gold)       60%,
+    var(--color-gold-dim)   100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+  transition: filter 0.25s ease;
 }
 
-.logoRegistro{
-	width: 25%;
-	transform: rotate(-25deg);
+.left-panel-log > a:hover h2 {
+  filter: brightness(1.2);
 }
 
-.logoLogin {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	align-items: center;
-	position: relative; 
+/* ══════════════════════════════════════════════════════════════════════════
+   FORM
+══════════════════════════════════════════════════════════════════════════ */
+.left-panel-log form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
 }
 
-.logo1,
-.logo2,
-.logo3 {
-	width: 100%; 
-	max-width: 200px; 
-	height: auto; 
-	transform: none; 
-	margin: 0 auto; 
+/* ── Heading H1 — Nivel 1 ──────────────────────────────────────────────── */
+.left-panel-log form h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  margin: 0 0 1.8rem;
+  text-align: center;
 }
 
-.logo1{
-	width: 200px;
-	margin-top: -128px;
-	margin-left: 264px;
-	transform: rotate(25deg);
-}
-.logo2{
-	width: 120px;
-	margin-top: -32px;
-	margin-right: 128px;
-	transform: rotate(-20deg);
-}
-.logo3{
-	width: 64px;
-	margin-top: 64px;
-	transform: rotate(15deg);
+/* ── Inputs — Nivel 2 ──────────────────────────────────────────────────── */
+.left-panel-log input[type="email"],
+.left-panel-log input[type="password"] {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-gold-border);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.82rem 1rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 31.25em) {
+.left-panel-log input[type="email"]::placeholder,
+.left-panel-log input[type="password"]::placeholder {
+  color: var(--color-text-faint);
+  font-style: italic;
+}
 
-	.logoLogin {
-		gap: 10px; 
-		align-items: center; 
-	}
+.left-panel-log input[type="email"]:focus,
+.left-panel-log input[type="password"]:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+}
 
-	.logo1,
-	.logo2,
-	.logo3 {
-		max-width: 150px; 
-		transform: none; 
-		margin: 0; 
-	}
+/* Input error state */
+.left-panel-log input.input-error {
+  border-color: var(--color-error-border);
+  background: var(--color-error-bg);
+  animation: shake 0.4s ease;
+}
 
-	.container-reg{
-		font-size: 1.2rem;
-	}
-	.container-log{
-		font-size: 1.2rem;
-	}
-	.left-panel{
-		display: none;
-	}
-	.right-panel-log{
-		display: none;
-	}
-	.left-panel-log{
-		padding: 10px;
-	}
+/* ── Error messages — Nivel 3 (smaller, red) ───────────────────────────── */
+.left-panel-log p {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-error);
+  margin: -0.5rem 0 0.9rem;
+  padding: 0.45rem 0.7rem;
+  border-left: 2px solid var(--color-error);
+  background: var(--color-error-bg);
+  line-height: 1.45;
+  animation: fadeUp 0.3s ease both;
+}
 
+/* ── Forgot password link — Nivel 4 ───────────────────────────────────── */
+.left-panel-log form > div:first-of-type {
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+
+.left-panel-log form > div:first-of-type a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-faint);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.left-panel-log form > div:first-of-type a:hover {
+  color: var(--color-gold-dim);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════════════════════════════════ */
+.big-button {
+  width: 100%;
+  padding: 0.9rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.25s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+  color: var(--color-bg);
+  font-weight: 500;
+}
+
+.primary-button:hover:not(:disabled) {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+.primary-button:active:not(:disabled) {
+  transform: translateY(0);
+  filter: brightness(0.95);
+}
+
+.primary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SEPARATOR + REGISTER LINK
+══════════════════════════════════════════════════════════════════════════ */
+.separator {
+  margin: 1.2rem 0 0.6rem;
+  min-height: 1.2rem; /* reserves space even when empty */
+}
+
+/* "¿No tienes cuenta?" row */
+.left-panel-log form > div:last-of-type {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.left-panel-log form > div:last-of-type a {
+  color: var(--color-gold);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.left-panel-log form > div:last-of-type a:hover {
+  color: var(--color-gold-light);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   DIVIDER (thin gold line)
+══════════════════════════════════════════════════════════════════════════ */
+.left-panel-log::before {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  margin-bottom: 1.6rem;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .left-panel-log {
+    padding: 2.2rem 1.6rem;
+  }
+
+  .left-panel-log form h1 {
+    font-size: 1.6rem;
+  }
 }
